@@ -36,7 +36,7 @@ Tool on prioritizing Web Applications
 - EyeWitness - gives screenshots and an overview of all the web applications.
   
 #### KKO 2003:36.
-Osuuspankkikeskus-OPK osuuskuntaan tehty porttiskannaus.
+OP-pankin tietojärjestelmään tehty porttiskannaus.
 
 ## a) Asenna Kali
 Asennettu.
