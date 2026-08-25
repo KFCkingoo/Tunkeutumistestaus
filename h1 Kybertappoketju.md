@@ -16,9 +16,14 @@ Had administrator access to confidential data and tried to exploit the company.
 
 Showcased the process of cyber kill chain and especially the risk of insider threats and excessive privileges.
 #### Hutchins et al 2011: Intelligence-Driven Computer Network Defense Informed by Analysis of Adversary Campaigns and Intrusion Kill Chains, chapters Abstract, 3.2 Intrusion Kill Chain.
+Using a kill chain model reduces the success of threat actors.
 
+Intrusion Kill Chain is used to describe the process of how attackers begin their attack and how they reach it.
 
+Stopping any stage in the Intrusion Kill Chain prevents the attackers from success or restricting their ability.
 #### € Santos et al: The Art of Hacking (Video Collection): 4.3 Surveying Essential Tools for Active Reconnaissance.
+
+
 #### KKO 2003:36.
 
 
