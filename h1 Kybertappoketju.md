@@ -71,7 +71,7 @@ Palvelujen tiedot kuten nimi, versio, os ja status tulostui.
 TCP portit 22 ja 80 oli auki.
 
 ## e) Ratkaise vapaavalintainen kone HackTheBoxista. Omalle tasolle sopiva, useimmille varmaan Starting Pointista. Valitse kone, jota et ole ratkaissut vielä. Ei tunnilla näytetty Meow. (Propellihatuille: jos teet vaikeampia ei-starting-point koneita, niin retired tai vastaava kone, josta saa julkaista writeupin).
-
+Ongelmia HTB koneen kanssa. Tehdään myöhemmin, ennen seuraavaa tuntia. Palautetaan nyt kuitenkin raportti ennen deadlinea.
 
 
 ## Lähteet
