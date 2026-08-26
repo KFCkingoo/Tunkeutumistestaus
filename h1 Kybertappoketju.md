@@ -71,7 +71,11 @@ Palvelujen tiedot kuten nimi, versio, os ja status tulostui.
 TCP portit 22 ja 80 oli auki.
 
 ## e) Ratkaise vapaavalintainen kone HackTheBoxista. Omalle tasolle sopiva, useimmille varmaan Starting Pointista. Valitse kone, jota et ole ratkaissut vielä. Ei tunnilla näytetty Meow. (Propellihatuille: jos teet vaikeampia ei-starting-point koneita, niin retired tai vastaava kone, josta saa julkaista writeupin).
-Ongelmia HTB koneen kanssa. Tehdään myöhemmin, ennen seuraavaa tuntia. Palautetaan nyt kuitenkin raportti ennen deadlinea.
+~~Ongelmia HTB koneen kanssa. Tehdään myöhemmin, ennen seuraavaa tuntia. Palautetaan nyt kuitenkin raportti ennen deadlinea.~~
+
+Saavutettu Fawn level.
+
+<img width="659" height="272" alt="Näyttökuva 2026-08-26 163041-1" src="https://github.com/user-attachments/assets/ba47fc91-9a4d-4f53-a457-fc64c3ae3770" />
 
 
 ## Lähteet
@@ -83,5 +87,5 @@ Hutchins et al 2011: [Intelligence-Driven Computer Network Defense Informed by A
 
 Santos et al: [The Art of Hacking (Video Collection): 4.3 Surveying Essential Tools for Active Reconnaissance.](https://learning.oreilly.com/videos/the-art-of/9780135767849/9780135767849-SPTT_04_00)
 
-Tero Karvinen 2026. [Tunkeutumistestaus h1](https://terokarvinen.com/tunkeutumistestaus/)
+Karvinen Tero 2026. [Tunkeutumistestaus h1](https://terokarvinen.com/tunkeutumistestaus/)
 
