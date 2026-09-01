@@ -20,14 +20,15 @@ Ryzen 5
 - Havainnot ilmoitetaan viranomaisille
 
 #### [TIBER-FI procedures and guidelines](https://www.suomenpankki.fi/globalassets/bof/en/money-and-payments/the-bank-of-finland-as-catalyst-payments-council/tiber-fi/tiber-fi-2.0-procedures-and-guidelines.pdf). 5.4 Testing phase: Red team testing
+**TIBER-FI prosessi**
 
-| Vaihe | TIBER-FI prosessi |
+| Vaihe | Kuvaus |
 |---|---|
 | **Recon** | Tiedonkeruu |
 | **Weaponisation** | Analysointi ja suunnittelu |
 | **Delivery** | Hyökkäyksen toimittaminen kohteeseen |
 | **Exploitation** | Yritys murtautua sisään |
-| **Control and Movement** | Siirtyminen muihin haavoittuviin tai korkea-arvoisempiin järjestelmiin |
+| **Control and Movement** | Siirtyminen muihin haavoittuvuuksiin tai korkea-arvoisempiin järjestelmiin |
 | **Actions on Target** | Pääsy tavoiteltuihin tietoihin on saavutettu. Testi pyritään suorittamaan loppuun ja liput kerätään. |
 
 
