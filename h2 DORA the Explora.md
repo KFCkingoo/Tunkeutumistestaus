@@ -10,11 +10,24 @@ Ryzen 5
 
 ---
 ## x) Lue/katso/kuuntele ja tiivistä.
+#### Buuri 2026: [DORA and TLPT testing - Lecture for Haaga-Helia on 31 March 2026](https://terokarvinen.com/buuri-2026-dora-and-threat-lead-penetration-testing/buuri-2026-dora-and-threat-lead-penetration-testing--teros-pentest-course.pdf)
+- Dora on EU-laajuinen sääntely finanssialan toiminnalliseen sietokykyyn.
+- TLPT (Threat-Led Penetration Testing) on testausvaatimus merkittäville yksilöille, jonka ovat määritellyt viranomaiset.
+- TIBER-EU/TIBER-FI (Threat Intelligence-Based Ethical Red Teaming) on kehys mikä tarjoaa red team-testeille yhteisen referenssimallin.
+
+#### DORA [(Regulation ... on digital operational resilience for the financial sector)](https://eur-lex.europa.eu/eli/reg/2022/2554/oj/eng). Article 26-27.
+- TLPT testauksen regulaatiota
+- Havainnot ilmoitetaan viranomaisille
+
+#### [TIBER-FI procedures and guidelines](https://www.suomenpankki.fi/globalassets/bof/en/money-and-payments/the-bank-of-finland-as-catalyst-payments-council/tiber-fi/tiber-fi-2.0-procedures-and-guidelines.pdf). 5.4 Testing phase: Red team testing
+- 
+
+- 5.4 Testing phase: Red team testing (johdantokappale suoraan 5.4 alta, "5.4.1 Red team test plan creation" alkuun asti)
 
 
 ---
-## a) Asenna Metasploitable 2 virtuaalikoneeseen. Jos säätelet VirtualBoxista
-
+## a) Asenna Metasploitable 2 virtuaalikoneeseen. 
+    Jos säätelet VirtualBoxista
     Kali saa yhteyden Internettiin, mutta sen voi laittaa pois päältä
     Kalin ja Metasploitablen välillä on host-only network, niin että porttiskannatessa ym. koneet on eristetty intenetistä, mutta ne saavat yhteyden toisiinsa
 
