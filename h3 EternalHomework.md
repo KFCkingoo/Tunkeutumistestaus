@@ -12,6 +12,7 @@ Ryzen 5
 #### x) Lue/katso/kuuntele ja tiivistä. (Tässä x-alakohdassa ei tarvitse tehdä testejä tietokoneella, vain lukeminen tai kuunteleminen ja tiivistelmä riittää. Tiivistämiseen riittää muutama ranskalainen viiva.)
 **€ Jaswal 2020: Mastering Metasploit - 4ed: Chapter 1: Approaching a Penetration Test Using Metasploit (kohdasta Conducting a penetration test with Metasploit luvun loppuun eli "Summary" loppuun)**
 - Metasploit on tehokas tunkeutumistestaus-työkalu
+- Tunkeutumistestauksen vaiheita ja Metasploitin perusteita
 
 **Mitä 'nmap -sn' tekee? Älä arvaa, vaan perustele lähteillä. Mistä tiedät, että käyttämäsi lähde on luotettava?**
 
@@ -206,8 +207,10 @@ Discovery
 
 ---
 #### Lähteet
+[ATT&CK Matrix for Enterprise](https://attack.mitre.org/).
 
-https://attack.mitre.org/
-https://chatgpt.com/
-€ Jaswal 2020: Mastering Metasploit - 4ed: Chapter 1: Approaching a Penetration Test Using Metasploit (kohdasta Conducting a penetration test with Metasploit luvun loppuun eli "Summary" loppuun)
-Mitä 'nmap -sn' tekee? Älä arvaa, vaan perustele lähteillä. Mistä tiedät, että käyttämäsi lähde on luotettava?
+[ChatGPT](https://chatgpt.com/) hyödynnetty h) tehtävässä.
+
+[CVE-2011-2523](https://www.cve.org/CVERecord?id=CVE-2011-2523).
+
+Jaswal, N. 2020: [Mastering Metasploit - Fourth Edition. Chapter 1: Approaching a Penetration Test Using Metasploit](https://learning.oreilly.com/library/view/mastering-metasploit/9781838980078/). Packt Publishing. E-kirja.
