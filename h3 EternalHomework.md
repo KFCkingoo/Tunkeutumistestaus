@@ -10,9 +10,13 @@ Ryzen 5
 
 ---
 #### x) Lue/katso/kuuntele ja tiivistä. (Tässä x-alakohdassa ei tarvitse tehdä testejä tietokoneella, vain lukeminen tai kuunteleminen ja tiivistelmä riittää. Tiivistämiseen riittää muutama ranskalainen viiva.)
+**€ Jaswal 2020: Mastering Metasploit - 4ed: Chapter 1: Approaching a Penetration Test Using Metasploit (kohdasta Conducting a penetration test with Metasploit luvun loppuun eli "Summary" loppuun)**
+- Metasploit on tehokas tunkeutumistestaus-työkalu
 
-    € Jaswal 2020: Mastering Metasploit - 4ed: Chapter 1: Approaching a Penetration Test Using Metasploit (kohdasta Conducting a penetration test with Metasploit luvun loppuun eli "Summary" loppuun)
-    Mitä 'nmap -sn' tekee? Älä arvaa, vaan perustele lähteillä. Mistä tiedät, että käyttämäsi lähde on luotettava?
+**Mitä 'nmap -sn' tekee? Älä arvaa, vaan perustele lähteillä. Mistä tiedät, että käyttämäsi lähde on luotettava?**
+
+-sn: Ping Scan - disable port scan, otettu suoraan `nmap -help` komennosta.
+
 
 ---
 #### b) Tallenna porttiskannauksen tuloksia Metasploitin tietokantoihin. Skannaa niin, että Metasploitable tulee mukaan. Kannattaa ottaa mukaan ainakin versioskannaus -sV (joka on banner grabbing plus).
@@ -128,6 +132,7 @@ Joistakin vaihtoehdoista löytyi tosi paljon moduuleja. Otettiin [Metasploitable
 Sitä olikin moduuleja vain 1. Jatkettiin ilman mallia.
 
 Tunkeutumista jatkettiin aikaisemman vsftpd-tunkeutumisen tyyliin.
+
     search unrealircd
     use 0
     show options
@@ -168,10 +173,41 @@ Syötetty `script -fa log001.txt` toiseen terminaaliin.
 
 ---
 #### k) Pivot point. Laita kaikki harjoituksen tiedostot (script -fa, nmap -oA...) samaan kansioon. Hae sopiva pivot point (sovellus, versio, osoite, MAC-numero) 'grep -r' -komennolla. Keksi uskottava esimerkkikysymys, johon haet vastausta.
-Kaikki tiedostot siirretty `Pivot_point`-kansioon. Tehtiin alustavasti yksinkertainen grep -r "unrealirc" ja kokeiltaessa muita arvoja kuten ip ja versio, `grep -r` sekosi ja heitti loputtoman määrän toistokomentoa `grep -r`.
+Kaikki tiedostot siirretty `Pivot_point`-kansioon. Tehtiin alustavasti yksinkertainen `grep -r "unrealirc"` ja kokeiltaessa muita arvoja kuten ip ja versio, `grep -r` sekosi ja heitti loputtoman määrän toistokomentoa `grep -r`.
 
 <img width="1255" height="947" alt="image" src="https://github.com/user-attachments/assets/2098b822-b92f-41dd-bf6a-7cbca139e5bb" />
 
+Tehtiin `log001.txt` tiedosto uudestaan.
+
+Ajettiin `grep -r "realirc"` ja `grep -r vsftpd`.
+
+<img width="1257" height="92" alt="Näyttökuva 2026-09-08 210648" src="https://github.com/user-attachments/assets/0dbe6699-5281-4ad3-9053-ff8bc286e9ef" />
+<br>
+<img width="1255" height="402" alt="image" src="https://github.com/user-attachments/assets/6d4ef34d-129f-4ef6-a1e6-5709ca783ee1" />
 
 ---
 #### l) Attaaack! Mitä Mitre Attack taktiikoita ja tekniikoita käytit tässä harjoituksessa? (Tässä alakohdassa "Attaack!" ei tarvitse tehdä lisää testejä koneella, koska testit on jo tehty.)
+Recon
+- Active Scanning 
+- Gather Victim Host Information
+  
+Initial Access
+- Exploit Public-Facing Application 
+- External Remote Services
+  
+Execution
+- Command and Scripting Interpreter
+  
+Credential Access
+- OS Credential Dumping
+  
+Discovery
+-  	Account Discovery 
+
+---
+#### Lähteet
+
+https://attack.mitre.org/
+https://chatgpt.com/
+€ Jaswal 2020: Mastering Metasploit - 4ed: Chapter 1: Approaching a Penetration Test Using Metasploit (kohdasta Conducting a penetration test with Metasploit luvun loppuun eli "Summary" loppuun)
+Mitä 'nmap -sn' tekee? Älä arvaa, vaan perustele lähteillä. Mistä tiedät, että käyttämäsi lähde on luotettava?
