@@ -188,21 +188,21 @@ Ajettiin `grep -r "realirc"` ja `grep -r vsftpd`.
 
 ---
 #### l) Attaaack! Mitä Mitre Attack taktiikoita ja tekniikoita käytit tässä harjoituksessa? (Tässä alakohdassa "Attaack!" ei tarvitse tehdä lisää testejä koneella, koska testit on jo tehty.)
-Recon
+**Recon**
 - Active Scanning 
 - Gather Victim Host Information
   
-Initial Access
+**Initial Access**
 - Exploit Public-Facing Application 
 - External Remote Services
   
-Execution
+**Execution**
 - Command and Scripting Interpreter
   
-Credential Access
+**Credential Access**
 - OS Credential Dumping
   
-Discovery
+**Discovery**
 -  	Account Discovery 
 
 ---
