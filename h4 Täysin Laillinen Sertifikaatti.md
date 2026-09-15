@@ -38,9 +38,10 @@ Generoitiin CA-sertifikaatti Tool -> Options -> Network -> Server Certificates. 
 <img width="741" height="580" alt="image" src="https://github.com/user-attachments/assets/463e35dd-c9a5-4704-a52c-59d90669b3bb" />
 
 #### Asenna se selaimeen
-Avattiin Firefox ja lisättiin CA-sertifikaatti. Firefox Settings -> Search "certificates" -> View Certificates... -> Import
+Avattiin Firefox ja lisättiin CA-sertifikaatti. **`Firefox Settings -> Search "certificates" -> View Certificates... -> Import`**
 
 <img width="792" height="310" alt="image" src="https://github.com/user-attachments/assets/b647dc40-8721-4f45-bb58-04e44a988ce6" />
+
 <br>
 Tarkistettiin, että sertifikaatti on asennettu.
 
@@ -48,20 +49,56 @@ Tarkistettiin, että sertifikaatti on asennettu.
 
 
 #### Laita ZAP proxyksi selaimeen
+ZAP:illa pystyy suoraan avata selain konfiguroituna Manual Explore:sta.
+
+<img width="748" height="816" alt="image" src="https://github.com/user-attachments/assets/ae200f03-b82d-492c-9e12-7596a1d2c948" />
+
+Selain avattiin ZAP:illa suoraan ja haulla "proxy" näkyy, että selain on jo valmiiksi konfiguroitu proxyna. Konfiguroitiin kuitenkin manuaalisesti selaimeen samalla mallilla tehtävää varten.
+
+`localhost` ei toiminut, joten piti starttaa apache.
+
+<img width="1217" height="181" alt="image" src="https://github.com/user-attachments/assets/56779181-bca5-424a-ac48-59f98e41de21" />
+
+ZAP toimii selaimen proxyna.
 
 #### Laita ZAP sieppaamaan myös kuvat
+Laitettiin asetus päälle **`Tools -> Options -> Display -> Process images in HTTP requests/responses`**.
 
-#### Osoita, että hakupyynnöt ilmestyvät ZAP:n käyttöliittymään. (Voi vaatia Firefox about:config network.proxy.allow_hijacking_localhost. Foxyproxy laittoi tämän aiemmin päälle itse. Kalin Firefox ESR oli viimeksi ongelmia Foxyproxyn kanssa - vaihtoehtona on asettaa Proxy käsin Settings, hakusana "proxy")
+Response kohdan alapalkista näkyy myös pyydetty kuva.
 
+<img width="847" height="412" alt="image" src="https://github.com/user-attachments/assets/a0a6029d-5d79-4686-a96c-58bbd308eaa0" />
+
+<br>
+
+Request kohdassa **`GET pyyntö openlogo-75.png-kuvasta.`**
+
+<img width="1201" height="187" alt="image" src="https://github.com/user-attachments/assets/98eefbe6-69ae-4eb8-8344-85258d5ffc47" />
 
 
 ---
 ## b) Kettumaista.  
 
 #### Asenna "FoxyProxy Standard" Firefox Addon, ja lisää ZAP proxyksi siihen.
+Asennettu Firefoxin laajennusten kautta ja lisätty ZAP proxyna.
+
+    Title: ZAP
+    Hostname: localhost
+    Port: 8080
+
 
 #### Käytä FoxyProxyn "Patterns" -toimintoa, niin että vain valitsemasi weppisivut ohjataan Proxyyn. (Läksyssä ohjataan varmaankin PortSwigger Labs ja localhost.)
+Lisättiin filtterit **`Proxy by Patterns`** painikkeesta ja lisättiin sinne:
 
+    http://localhost/*               #localhost
+    *.web-secutity-academy.net/*     #portswigger labs
+
+<img width="956" height="502" alt="image" src="https://github.com/user-attachments/assets/2543be0f-5374-4e3c-962f-45d232916984" />
+
+Testattiin, että filtteri toimii.
+
+<img width="760" height="975" alt="image" src="https://github.com/user-attachments/assets/1e6769d9-2df4-4f37-a116-fef2d683b240" />
+
+Proxy sieppaa vain filtteröidyt kohteet.
 
 ---
 ## PortSwigger Labs. Ratkaise tehtävät. Selitä ratkaisusi: mitä palvelimella tapahtuu, mitä eri osat tekevät, miten hyökkäys löytyi, mistä vika johtuu. ratkaisu ja haavoittuvuuden etsiminen on selitettävä ja perusteltava.
