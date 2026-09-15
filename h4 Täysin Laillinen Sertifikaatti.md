@@ -11,17 +11,25 @@ Ryzen 5
 
 ---
 ## x) Lue/katso ja tiivistä.
-**OWASP 2021: OWASP Top 10:2021**
-
-[A01:2021 – Broken Access Control (IDOR ja path traversal ovat osa tätä)](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+#### OWASP 2021: OWASP Top 10:2021 [A01:2021 – Broken Access Control (IDOR ja path traversal ovat osa tätä)](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+- 94% testatuista sovelluksista ollaan todettu haavoittuvaisista pääsynhallinnasta.
+- Pääsynhallinta asettaa käyttäjille asetetut käyttöoikeudet.
 
     
-**PortSwigget Academy**
+#### PortSwigger Academy
+#### [Insecure direct object references (IDOR)](https://portswigger.net/web-security/access-control/idor)
+- Pääsynhallinnan haavoittuvuus, missä sovellus käyttää käyttäjän syöttöä objektin pääsyyn.
+- Esimerkissä muutetaan parametreja. 
 
-[Insecure direct object references (IDOR)](https://portswigger.net/web-security/access-control/idor)
 
-[Path traversal](https://portswigger.net/web-security/file-path-traversal)
-[Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting) 
+#### [Path traversal](https://portswigger.net/web-security/file-path-traversal)
+- Directory traversal, hakemiston kulku(?)
+- Haavoittuvuus antaa pääsyn hyökkääjän etsimään tietoon hakemistoa navigoimalla URL-syötteellä.
+
+
+#### [Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting) 
+-
+
 
 
 ---
@@ -116,6 +124,28 @@ e) Selitä esimerkin avulla, mitä hyökkääjä hyötyy XSS-hyökkäyksestä. A
 #### Path traversal
 
 f) [File path traversal, simple case. Laita tarvittaessa Zapissa kuvien sieppaus päälle.](https://portswigger.net/web-security/file-path-traversal/lab-simple)
+
+    This lab contains a path traversal vulnerability in the display of product images.
+    To solve the lab, retrieve the contents of the /etc/passwd file
+
+Labissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
+
+Haavoittuvuus löytyi tuotteen URLissa ja ZAP:ista mentiin muokkaamaan **`/image?filename=20.jpg`**. Portswiggerin mukaan kuvat säilytetään **`/var/www/images`** hakemistossa.
+
+Sieltä piti navigoida root-hakemistoon ja sieltä pääsyä haluttuun tietoon. Muokattiin Requesterissa URL:ia hakemaan **`/etc/passwd`** tiedostoa.
+
+    filename=../../../etc/passwd    #navigoitiin root-hakemistoon ja sieltä /etc/passwd tiedostoon.
+
+Piti muuttaa Responsen outputtia tekstimuotoon **`Body: Text`**, jotta tiedot tulostui.
+    
+<img width="842" height="614" alt="image" src="https://github.com/user-attachments/assets/379e5e15-6552-4c51-84c2-81319ed0a804" />
+
+<br>
+
+<img width="930" height="101" alt="image" src="https://github.com/user-attachments/assets/b5f85103-811c-46d6-b189-a303fc8481f5" />
+
+
+---
 
 g) [File path traversal, traversal sequences blocked with absolute path bypass](https://portswigger.net/web-security/file-path-traversal/lab-absolute-path-bypass)
 
