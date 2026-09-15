@@ -121,14 +121,14 @@ e) Selitä esimerkin avulla, mitä hyökkääjä hyötyy XSS-hyökkäyksestä. A
 
 
 
-#### Path traversal
+## Path traversal
 
-f) [File path traversal, simple case. Laita tarvittaessa Zapissa kuvien sieppaus päälle.](https://portswigger.net/web-security/file-path-traversal/lab-simple)
+## f) [File path traversal, simple case. Laita tarvittaessa Zapissa kuvien sieppaus päälle.](https://portswigger.net/web-security/file-path-traversal/lab-simple)
 
     This lab contains a path traversal vulnerability in the display of product images.
     To solve the lab, retrieve the contents of the /etc/passwd file
 
-Labissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
+Labin kuvissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
 
 Haavoittuvuus löytyi tuotteen URLissa ja ZAP:ista mentiin muokkaamaan **`/image?filename=20.jpg`**. Portswiggerin mukaan kuvat säilytetään **`/var/www/images`** hakemistossa.
 
@@ -147,13 +147,31 @@ Piti muuttaa Responsen outputtia tekstimuotoon **`Body: Text`**, jotta tiedot tu
 
 ---
 
-g) [File path traversal, traversal sequences blocked with absolute path bypass](https://portswigger.net/web-security/file-path-traversal/lab-absolute-path-bypass)
+## g) [File path traversal, traversal sequences blocked with absolute path bypass](https://portswigger.net/web-security/file-path-traversal/lab-absolute-path-bypass)
+    This lab contains a path traversal vulnerability in the display of product images.
+    The application blocks traversal sequences but treats the supplied filename as being relative to a default working directory.
+    To solve the lab, retrieve the contents of the /etc/passwd file. 
 
-h) [File path traversal, traversal sequences stripped non-recursively](https://portswigger.net/web-security/file-path-traversal/lab-sequences-stripped-non-recursively)
+Labin kuvissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
+
+Labi estää hakemiston kulkua, mutta **`filename`** toimii relatiivisesti hakemistoon.
+
+Muistan Portswiggerin videosta kun he lisäsivät tiedoston sijainnin suoraan **`filename`**. Testattiin sillä.
+
+    filename=/etc/passwd
+
+<img width="836" height="613" alt="image" src="https://github.com/user-attachments/assets/840b4412-d227-4579-a226-d126cd089b7b" />
+
+<br>
+
+<img width="927" height="66" alt="image" src="https://github.com/user-attachments/assets/9445d267-a5da-498d-9c51-7e858facc124" />
+
+---
+## h) [File path traversal, traversal sequences stripped non-recursively](https://portswigger.net/web-security/file-path-traversal/lab-sequences-stripped-non-recursively)
 
 
 
-
+---
 #### Insecure Direct Object Reference (IDOR)
 
 i) [Insecure direct object references](https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references)
