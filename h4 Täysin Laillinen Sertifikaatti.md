@@ -14,8 +14,7 @@ Ryzen 5
 #### OWASP 2021: OWASP Top 10:2021 [A01:2021 – Broken Access Control (IDOR ja path traversal ovat osa tätä)](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
 - 94% testatuista sovelluksista ollaan todettu haavoittuvaisista pääsynhallinnasta.
 - Pääsynhallinta asettaa käyttäjille asetetut käyttöoikeudet.
-
-    
+ 
 #### PortSwigger Academy
 #### [Insecure direct object references (IDOR)](https://portswigger.net/web-security/access-control/idor)
 - Pääsynhallinnan haavoittuvuus, missä sovellus käyttää käyttäjän syöttöä objektin pääsyyn.
@@ -28,7 +27,15 @@ Ryzen 5
 
 
 #### [Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting) 
--
+- Tietoturva haavoittuvuus, hyökkääjä tekee sovelluksesta haitallisen.
+- Yleisesti saa käyttäjän käyttöoikeudet
+
+
+| XSS | Kuvaus |
+|---|---|
+| **Reflected XSS** | Haitallinen skripti tulee nykyisestä HTTP-pyynnöstä. |
+| **Stored XSS** | Haitallinen skripti tulee sivuston tietokannasta. |
+| **DOM-based XSS** | Haavoittuvuus sijaitsee asiakaspuolen koodissa eikä palvelinpuolen koodissa. |
 
 
 
@@ -111,13 +118,40 @@ Proxy sieppaa vain filtteröidyt kohteet.
 ---
 ## PortSwigger Labs. Ratkaise tehtävät. Selitä ratkaisusi: mitä palvelimella tapahtuu, mitä eri osat tekevät, miten hyökkäys löytyi, mistä vika johtuu. ratkaisu ja haavoittuvuuden etsiminen on selitettävä ja perusteltava.
 
-#### Cross Site Scripting (XSS)
+## Cross Site Scripting (XSS)
 
-c) [Reflected XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/reflected/lab-html-context-nothing-encoded)
+## c) [Reflected XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/reflected/lab-html-context-nothing-encoded)
+    This lab contains a simple reflected cross-site scripting vulnerability in the search functionality.
+    To solve the lab, perform a cross-site scripting attack that calls the alert function.
 
-d) [Stored XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded)
+Koska hakukentän syötettä ei enkoodata eikä mitenkään prosessoida, se ottaa hyökkääjän skriptin HTML:ään ja suorittaa sen.
 
-e) Selitä esimerkin avulla, mitä hyökkääjä hyötyy XSS-hyökkäyksestä. Alert("Hei Tero!") ei vielä tarjoa kummoista pääsyä. (Tässä alakohdassa ei tarvitse tehdä testejä tietokoneella, pelkkä lyhyt ja selkeä selitys riittää.)
+Tehtiin skripti Labin hakukenttään ja se suoritti koodin.
+
+    <script>alert(1)</script>
+
+<img width="480" height="135" alt="image" src="https://github.com/user-attachments/assets/383191a8-9b67-4748-8300-0f69bb916eb7" />
+<br>
+<img width="942" height="55" alt="image" src="https://github.com/user-attachments/assets/79f51fb1-aaca-4241-bc9f-c1b8849e892f" />
+
+---
+## d) [Stored XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded)
+    This lab contains a stored cross-site scripting vulnerability in the comment functionality.
+    To solve this lab, submit a comment that calls the alert function when the blog post is viewed. 
+
+Koska sivusto ei enkoodaa dataa, se tallentaa syötteen HTML:ään ja avattaessa blogin - se suorittaa skriptikoodin.
+
+Syötettiin kommenttikenttään skriptikoodi ja postattiin se.
+
+    <script>alert(1)</script>
+
+Kun avaa blogin niin ponnahtaa ilmoitus.
+
+<img width="490" height="132" alt="image" src="https://github.com/user-attachments/assets/f50c90c8-0210-4d30-87ea-4acdf0e2d015" />
+
+
+---
+## e) Selitä esimerkin avulla, mitä hyökkääjä hyötyy XSS-hyökkäyksestä. Alert("Hei Tero!") ei vielä tarjoa kummoista pääsyä. (Tässä alakohdassa ei tarvitse tehdä testejä tietokoneella, pelkkä lyhyt ja selkeä selitys riittää.)
 
 
 
@@ -206,12 +240,6 @@ i) [Insecure direct object references](https://portswigger.net/web-security/acce
 
 [Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting) 
 
-[File path traversal, simple case. Laita tarvittaessa Zapissa kuvien sieppaus päälle.](https://portswigger.net/web-security/file-path-traversal/lab-simple)
-
-[File path traversal, traversal sequences blocked with absolute path bypass](https://portswigger.net/web-security/file-path-traversal/lab-absolute-path-bypass)
-
-[File path traversal, traversal sequences stripped non-recursively](https://portswigger.net/web-security/file-path-traversal/lab-sequences-stripped-non-recursively)
-
 [Insecure direct object references](https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references)
 
 [Insecure direct object references (IDOR)](https://portswigger.net/web-security/access-control/idor)
@@ -220,9 +248,10 @@ Karvinen Tero 2026. [Tunkeutumistestaus h4](https://terokarvinen.com/tunkeutumis
 
 [Path traversal](https://portswigger.net/web-security/file-path-traversal)
 
-[Reflected XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/reflected/lab-html-context-nothing-encoded)
+[Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected)
 
-[Stored XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded)
+[Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored)
+
 
 
 
