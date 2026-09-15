@@ -130,11 +130,11 @@ e) Selitä esimerkin avulla, mitä hyökkääjä hyötyy XSS-hyökkäyksestä. A
 
 Labin kuvissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
 
-Haavoittuvuus löytyi tuotteen URLissa ja ZAP:ista mentiin muokkaamaan **`/image?filename=20.jpg`**. Portswiggerin mukaan kuvat säilytetään **`/var/www/images`** hakemistossa.
+Haavoittuvuus löytyi tuotteen URLissa ja ZAP:ista mentiin muokkaamaan sitä **`/image?filename=20.jpg`**. Portswiggerin mukaan kuvat säilytetään **`/var/www/images`** hakemistossa.
 
 Sieltä piti navigoida root-hakemistoon ja sieltä pääsyä haluttuun tietoon. Muokattiin Requesterissa URL:ia hakemaan **`/etc/passwd`** tiedostoa.
 
-    filename=../../../etc/passwd    #navigoitiin root-hakemistoon ja sieltä /etc/passwd tiedostoon.
+    filename=../../../etc/passwd    #navigoitiin /var/www/images hakemistosta root-hakemistoon ja sieltä /etc/passwd tiedostoon.
 
 Piti muuttaa Responsen outputtia tekstimuotoon **`Body: Text`**, jotta tiedot tulostui.
     
@@ -154,11 +154,11 @@ Piti muuttaa Responsen outputtia tekstimuotoon **`Body: Text`**, jotta tiedot tu
 
 Labin kuvissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
 
-Labi estää hakemiston kulkua, mutta **`filename`** toimii relatiivisesti hakemistoon.
+Labi estää hakemiston kulkua, mutta **`filename`** toimii relatiivisesti kotihakemistoon.
 
 Muistan Portswiggerin videosta kun he lisäsivät tiedoston sijainnin suoraan **`filename`**. Testattiin sillä.
 
-    filename=/etc/passwd
+    filename=/etc/passwd    #navigoitiin suoraan /etc/passwd tiedostoon
 
 <img width="836" height="613" alt="image" src="https://github.com/user-attachments/assets/840b4412-d227-4579-a226-d126cd089b7b" />
 
@@ -168,8 +168,32 @@ Muistan Portswiggerin videosta kun he lisäsivät tiedoston sijainnin suoraan **
 
 ---
 ## h) [File path traversal, traversal sequences stripped non-recursively](https://portswigger.net/web-security/file-path-traversal/lab-sequences-stripped-non-recursively)
+    This lab contains a path traversal vulnerability in the display of product images.
+    The application strips path traversal sequences from the user-supplied filename before using it.
+    To solve the lab, retrieve the contents of the /etc/passwd file. 
 
+Samaa hommelia kuin aikaisemmat, mutta ne ratkaisut eivät todennäköisesti toimi.
 
+Testattiin kummatkin ratkaisut Requesterissa, ei toiminut.
+
+    filename=../../../etc/passwd
+    filename=/etc/passwd HTTP/1.1
+    
+    "No such file"
+
+Portswiggerissa on myös muu oikaisu kun sekvenssiä yritetään estää, syöttämällä sisennetyt sekvenssit **`....//`**.
+
+Testattuaan oikaisua, **`....//`** kulkee kuin **`../`**.
+
+    filename=....//....//....//etc/passwd
+
+<img width="831" height="614" alt="image" src="https://github.com/user-attachments/assets/304c62e1-4173-46f2-948f-7edd02a976ea" />
+
+<br>
+
+<img width="926" height="57" alt="image" src="https://github.com/user-attachments/assets/131d2ab5-5ae7-49f3-8183-c632c513fcbe" />
+
+Toimii!
 
 ---
 #### Insecure Direct Object Reference (IDOR)
