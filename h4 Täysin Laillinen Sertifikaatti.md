@@ -197,11 +197,11 @@ Piti muuttaa Responsen outputtia tekstimuotoon **`Body: Text`**, jotta tiedot tu
 
 Labin kuvissa on path traversal haavoittuvuus, eli voidaan yrittää päästä **`/etc/passwd`** tiedostoon navigoimalla hakemistoa URL:issa.
 
-Labi estää hakemiston kulkua, mutta **`filename`** toimii relatiivisesti kotihakemistoon.
+Labi estää hakemiston kulkua, mutta **`filename`** toimii oletushakemistona.
 
-Muistan Portswiggerin videosta kun he lisäsivät tiedoston sijainnin suoraan **`filename`**. Testattiin sillä.
+Portswiggerin videossa he lisäsivät tiedoston sijainnin suoraan **`filename`** jälkeen. Testattiin sillä.
 
-    filename=/etc/passwd    #navigoitiin suoraan /etc/passwd tiedostoon
+    filename=/etc/passwd    #navigoitiin suoraan /etc/passwd tiedostoon, absolute path
 
 <img width="836" height="613" alt="image" src="https://github.com/user-attachments/assets/840b4412-d227-4579-a226-d126cd089b7b" />
 
