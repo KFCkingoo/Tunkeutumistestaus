@@ -11,7 +11,7 @@ Ryzen 5
 
 ---
 ## x) Lue/katso ja tiivistä.
-#### OWASP 2021: OWASP Top 10:2021 [A01:2021 – Broken Access Control (IDOR ja path traversal ovat osa tätä)](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+#### OWASP Top 10:2021 [A01:2021 – Broken Access Control](https://top10.owasp.org/2021/A01_2021-Broken_Access_Control/)
 - 94% testatuista sovelluksista ollaan todettu haavoittuvaisista pääsynhallinnasta.
 - Pääsynhallinta asettaa käyttäjille asetetut käyttöoikeudet.
  
@@ -48,7 +48,7 @@ Ryzen 5
     zaproxy
     
 #### Generoi CA-sertifikaatti
-Generoitiin CA-sertifikaatti Tool -> Options -> Network -> Server Certificates. Tallennettiin CA-sertifikaatti.
+Generoitiin CA-sertifikaatti **`Tool -> Options -> Network -> Server Certificates`.** Tallennettiin CA-sertifikaatti.
 
 <img width="741" height="580" alt="image" src="https://github.com/user-attachments/assets/463e35dd-c9a5-4704-a52c-59d90669b3bb" />
 
@@ -59,7 +59,7 @@ Avattiin Firefox ja lisättiin CA-sertifikaatti. **`Firefox Settings -> Search "
 
 <br>
 Tarkistettiin, että sertifikaatti on asennettu.
-
+<br>
 <img width="632" height="77" alt="Näyttökuva 2026-09-15 161908" src="https://github.com/user-attachments/assets/0e337a39-e139-46cc-a30c-9dfdc55d0a9f" />
 
 
@@ -72,6 +72,9 @@ Selain avattiin ZAP:illa suoraan ja haulla "proxy" näkyy, että selain on jo va
 
 `localhost` ei toiminut, joten piti starttaa apache.
 
+     sudo systemctl start apache2.service
+
+
 <img width="1217" height="181" alt="image" src="https://github.com/user-attachments/assets/56779181-bca5-424a-ac48-59f98e41de21" />
 
 ZAP toimii selaimen proxyna.
@@ -79,7 +82,7 @@ ZAP toimii selaimen proxyna.
 #### Laita ZAP sieppaamaan myös kuvat
 Laitettiin asetus päälle **`Tools -> Options -> Display -> Process images in HTTP requests/responses`**.
 
-Response kohdan alapalkista näkyy myös pyydetty kuva.
+Response kohdan alapalkista näkyy myös pyydetty kuva _(kuvassa oikea alakulma)_.
 
 <img width="847" height="412" alt="image" src="https://github.com/user-attachments/assets/a0a6029d-5d79-4686-a96c-58bbd308eaa0" />
 
@@ -113,7 +116,7 @@ Testattiin, että filtteri toimii.
 
 <img width="760" height="975" alt="image" src="https://github.com/user-attachments/assets/1e6769d9-2df4-4f37-a116-fef2d683b240" />
 
-Proxy sieppaa vain filtteröidyt kohteet.
+Proxy sieppaa vain filtteröidyt kohteet **localhost** ja Portswiggerin labit **.web-secutity-academy.net/**.
 
 ---
 ## PortSwigger Labs. Ratkaise tehtävät. Selitä ratkaisusi: mitä palvelimella tapahtuu, mitä eri osat tekevät, miten hyökkäys löytyi, mistä vika johtuu. ratkaisu ja haavoittuvuuden etsiminen on selitettävä ja perusteltava.
@@ -124,7 +127,9 @@ Proxy sieppaa vain filtteröidyt kohteet.
     This lab contains a simple reflected cross-site scripting vulnerability in the search functionality.
     To solve the lab, perform a cross-site scripting attack that calls the alert function.
 
-Koska hakukentän syötettä ei enkoodata eikä mitenkään prosessoida, se ottaa hyökkääjän skriptin HTML:ään ja suorittaa sen.
+Koska hakukentän syötettä ei enkoodata eikä mitenkään prosessoida, se tulostaa syötteen takaisin käyttäjälle.
+
+Selain ottaa hyökkääjän skriptin ja suorittaa sen käyttäjän selaimessa.
 
 Tehtiin skripti Labin hakukenttään ja se suoritti koodin.
 
@@ -132,14 +137,17 @@ Tehtiin skripti Labin hakukenttään ja se suoritti koodin.
 
 <img width="480" height="135" alt="image" src="https://github.com/user-attachments/assets/383191a8-9b67-4748-8300-0f69bb916eb7" />
 <br>
+<br>
 <img width="942" height="55" alt="image" src="https://github.com/user-attachments/assets/79f51fb1-aaca-4241-bc9f-c1b8849e892f" />
+
+Toimii.
 
 ---
 ## d) [Stored XSS into HTML context with nothing encoded](https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded)
     This lab contains a stored cross-site scripting vulnerability in the comment functionality.
     To solve this lab, submit a comment that calls the alert function when the blog post is viewed. 
 
-Koska sivusto ei enkoodaa dataa, se tallentaa syötteen HTML:ään ja avattaessa blogin - se suorittaa skriptikoodin.
+Koska sivusto ei enkoodaa dataa, se tallentaa syötteen palvelimen tietokantaan. Kun avaa blogin, niin se suorittaa skriptikoodin selaimessa.
 
 Syötettiin kommenttikenttään skriptikoodi ja postattiin se.
 
@@ -149,11 +157,12 @@ Kun avaa blogin niin ponnahtaa ilmoitus.
 
 <img width="490" height="132" alt="image" src="https://github.com/user-attachments/assets/f50c90c8-0210-4d30-87ea-4acdf0e2d015" />
 
+Toimii.
 
 ---
 ## e) Selitä esimerkin avulla, mitä hyökkääjä hyötyy XSS-hyökkäyksestä. Alert("Hei Tero!") ei vielä tarjoa kummoista pääsyä. (Tässä alakohdassa ei tarvitse tehdä testejä tietokoneella, pelkkä lyhyt ja selkeä selitys riittää.)
 
-
+Jos esim. otetaan Stored XSS-hyökkäys sivustoon missä on kommentteja ja syötteitä ei enkoodata kuten d) tehtävässä. Hyökkääjä voi suorittaa haitalliset koodit käyttäjien selaimessa, huijata käyttäjiä ja muuttaa sivustoa.
 
 ## Path traversal
 
@@ -230,27 +239,49 @@ Testattuaan oikaisua, **`....//`** kulkee kuin **`../`**.
 Toimii!
 
 ---
-#### Insecure Direct Object Reference (IDOR)
 
-i) [Insecure direct object references](https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references)
+## i) [Insecure Direct Object References (IDOR)](https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references)
+    This lab stores user chat logs directly on the server's file system, and retrieves them using static URLs.
+    Solve the lab by finding the password for the user carlos, and logging into their account. 
+
+Yritin aluksi saada jotakin irti kun latasin transcriptin **`Live Chat -> View transcript`**.
+
+Sitten yritin etsiä ZAP:ista tietoa kuten carlos, login, POST-pyynnöt, vielä yritettiin kirjautua sisään carlos-käyttäjätunnuksilla ilman salasanaa.
+
+Tehtävänratkaisussa ei oikein edetty, joten katsottiin Portswaggerista ratkaisu. Ei edes oltu huomattu, että **`View transcript`** oli skipannut **`1.txt`** ja mennyt suoraan 2.txt!
+
+Mentiin ZAP:iin ja etsittiin sieltä **download-transcript -> GET:3.txt** ja muutettiin se **1.txt**.
+
+<img width="1257" height="257" alt="image" src="https://github.com/user-attachments/assets/1902b9a9-3d47-453d-9333-59b4ed732f97" />
+
+<br>
+
+<img width="831" height="542" alt="image" src="https://github.com/user-attachments/assets/da0934df-8e0f-43c5-8f4a-a4d4947ea48b" />
+
+<br>
+
+Testattiin salasana.
+
+<img width="1255" height="562" alt="image" src="https://github.com/user-attachments/assets/7ba3d905-c1d9-4ebc-b37e-cac8989b8331" />
+
+Päästiin sisään.
 
 ---
 ## Lähteet
-[A01:2021 – Broken Access Control (IDOR ja path traversal ovat osa tätä)](https://owasp.org/Top10/A01_2021-Broken_Access_Control/)
+Karvinen, T. 2026. [Tunkeutumistestaus h4](https://terokarvinen.com/tunkeutumistestaus/#h4-taysin-laillinen-sertifikaatti). Luettu: 15.9.2026.
 
-[Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting) 
+OWASP Top 10 Team. 2021. [A01:2021 – Broken Access Control](https://top10.owasp.org/2021/A01_2021-Broken_Access_Control/). Luettu: 15.9.2026
 
-[Insecure direct object references](https://portswigger.net/web-security/access-control/lab-insecure-direct-object-references)
+PortSwigger s.a. [Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting). Luettu: 16.9.2026.
 
-[Insecure direct object references (IDOR)](https://portswigger.net/web-security/access-control/idor)
+PortSwigger s.a. [Insecure direct object references (IDOR)](https://portswigger.net/web-security/access-control/idor). Luettu: 16.9.2026.
 
-Karvinen Tero 2026. [Tunkeutumistestaus h4](https://terokarvinen.com/tunkeutumistestaus/#h4-taysin-laillinen-sertifikaatti)
+PortSwigger s.a. [Path traversal](https://portswigger.net/web-security/file-path-traversal). Luettu: 15.9.2026.
 
-[Path traversal](https://portswigger.net/web-security/file-path-traversal)
+PortSwigger s.a. [Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected). Luettu: 15.9.2026.
 
-[Reflected XSS](https://portswigger.net/web-security/cross-site-scripting/reflected)
+PortSwigger s.a. [Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored). Luettu: 15.9.2026.
 
-[Stored XSS](https://portswigger.net/web-security/cross-site-scripting/stored)
 
 
 
