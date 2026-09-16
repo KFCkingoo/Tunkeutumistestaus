@@ -268,6 +268,8 @@ Päästiin sisään.
 
 ---
 ## Lähteet
+FoxyProxy. s.a. [URL Patterns](https://help.getfoxyproxy.org/index.php/knowledge-base/url-patterns/)
+
 Karvinen, T. 2026. [Tunkeutumistestaus h4](https://terokarvinen.com/tunkeutumistestaus/#h4-taysin-laillinen-sertifikaatti). Luettu: 15.9.2026.
 
 OWASP Top 10 Team. 2021. [A01:2021 – Broken Access Control](https://top10.owasp.org/2021/A01_2021-Broken_Access_Control/). Luettu: 15.9.2026
