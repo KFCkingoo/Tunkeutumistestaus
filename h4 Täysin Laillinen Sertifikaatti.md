@@ -268,7 +268,7 @@ Päästiin sisään.
 
 ---
 ## Lähteet
-FoxyProxy. s.a. [URL Patterns](https://help.getfoxyproxy.org/index.php/knowledge-base/url-patterns/)
+FoxyProxy. s.a. [URL Patterns](https://help.getfoxyproxy.org/index.php/knowledge-base/url-patterns/). Luettu: 15.9.2026.
 
 Karvinen, T. 2026. [Tunkeutumistestaus h4](https://terokarvinen.com/tunkeutumistestaus/#h4-taysin-laillinen-sertifikaatti). Luettu: 15.9.2026.
 
