@@ -307,7 +307,7 @@ Hardware.Mon.#01.: Util: 24%
 ## Lähteet
 [ChatGPT](https://chatgpt.com/) hyödynnetty tehtävissä g) ja h). Käytetty 23.9.2026.
 
-HackerDNA Team. 17.9.2026 [How to Use Hashcat: Attack Modes and Examples (2026)](https://hackerdna.com/blog/how-to-use-hashcat). Luettu 23.9.2026. 
+HackerDNA Team. 17.9.2026. [How to Use Hashcat: Attack Modes and Examples (2026)](https://hackerdna.com/blog/how-to-use-hashcat). Luettu 23.9.2026. 
 
 Hash Generator. 2026. [Online Hash Generator](https://hashgenerator.co/). Käytetty 23.9.2026.
 
