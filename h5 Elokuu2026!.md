@@ -20,7 +20,7 @@ Ryzen 5
 **Karvinen 2023: [Crack File Password With John](https://terokarvinen.com/2023/crack-file-password-with-john/)**
 
 - Tiedosto esim. zip voi olla lukittu salasanalla, sen voi murtaa **`John the Ripper`**-työkalulla
-- 
+- John the Ripper voi murtaa monta eri formaattia
 
 ---
 ## a) Asenna Hashcat ja testaa sen toiminta murtamalla esimerkkisalasana.
@@ -123,8 +123,45 @@ Tässä vielä purattu sisältö.
 
 ---
 ## e) Tiedosto. Tee itse tai etsi verkosta jokin salakirjoitettu tiedosto, jonka saat auki. Murra sen salaus. (Jokin muu formaatti kuin aiemmissa alakohdissa kokeilemasi).
+**Tiedoston luonti**
+
+    nano namnamA.txt
+
+**Tiedoston salaus 7z**
 
 
+    7z a -p "pizza" secret.7z namnamA.txt
+
+    # Poistettiin tiedosto
+    rm namnamA.txt
+
+    # Epäonnistunut purkaustesti
+    7z e pizza.7z
+
+**a** on tiedoston lisäys.
+
+**-p** on salasana.
+
+**e** purkaus.
+
+**Murretaan**
+
+    # Otetaan hash talteen
+    7z2john pizza.7z > pizza.7z.hash
+
+    # Selvitetään salasana
+    john pizza.7z.hash
+
+<img width="767" height="227" alt="kuva" src="https://github.com/user-attachments/assets/5fbf1000-7fde-4474-b929-535f51d8c52c" />
+
+Saatiin salasana **pizza**, puretaan 7z-tiedosto.
+
+<img width="575" height="455" alt="kuva" src="https://github.com/user-attachments/assets/5e1a0c23-f839-4909-977f-cb3d6c6a24bb" />
+
+Saatiin purettua tiedosto ja tässä purettu tiedosto.
+
+    └─$ cat namnamA.txt                  
+    burgir
 
 ---
 ## f) Tiiviste. Tee itse tai etsi verkosta salasanan tiiviste, jonka saat auki. Murra sen salaus. (Jokin muu formaatti kuin aiemmissa alakohdissa kokeilemasi. Voit esim. tehdä käyttäjän Linuxiin ja murtaa sen salasanan.)
