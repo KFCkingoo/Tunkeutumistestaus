@@ -146,7 +146,7 @@ Tässä vielä purattu sisältö.
 
 **e** purkaus.
 
-**Murretaan**
+**Murretaan 7z-tiedosto**
 ```bash
     # Otetaan hash talteen
     7z2john pizza.7z > pizza.7z.hash
@@ -168,8 +168,47 @@ Saatiin purettua tiedosto ja tässä purettu tiedosto.
 
 ---
 ## f) Tiiviste. Tee itse tai etsi verkosta salasanan tiiviste, jonka saat auki. Murra sen salaus. (Jokin muu formaatti kuin aiemmissa alakohdissa kokeilemasi. Voit esim. tehdä käyttäjän Linuxiin ja murtaa sen salasanan.)
+**Tehtiin SHA-256 hash sivustolla https://hashgenerator.co/**
 
+**Lisättiin se tiedostoon**
 
+    └─$ cat namnamB.txt
+    d241bd2a4c7ef7c695230258b80c66b955a9af10f804a989a1dd84fdbf3ce228
+
+**Selvitettiin hash-formaatti hashid ja hash-identifier työkalulla**
+
+<img width="635" height="742" alt="kuva" src="https://github.com/user-attachments/assets/11c51e35-c529-4408-9149-ffdeb03f1692" />
+
+Tunnistivat formaatin.
+
+**Murretaan tiedosto**
+
+```bash
+# Etsittiin moodi numero SHA-256
+hashcat -hh
+
+# Ajettiin moodi 1400
+hashcat -m 1400 namnamB.txt rockyou.txt -o solved
+```
+
+Ei saatu osumaa.
+
+    ...
+    Status...........: Exhausted
+    Hash.Mode........: 1400 (SHA2-256)
+    ...
+
+Luotiin tiedosto, jossa on varsinainen salasana ja testattiin uudelleen.
+
+    echo pizzapolloburgir > testi.txt
+    hashcat -m 1400 namnamB.txt testi.txt -o solved
+
+Murtautuminen onnistui.
+
+    └─$ cat solved 
+    6b1628b016dff46e6fa35684be6acc96:summer
+    d241bd2a4c7ef7c695230258b80c66b955a9af10f804a989a1dd84fdbf3ce228:pizzapolloburgir
+    
 
 ---
 ## g) Sanakirja. Oman sanakirjan teko parantaa onnistumismahdollisuuksia. Demonstroi, kuinka teet oman sanakirjan hashcat:n tai john:iin.
