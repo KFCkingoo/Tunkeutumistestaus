@@ -208,12 +208,40 @@ Murtautuminen onnistui.
     └─$ cat solved 
     6b1628b016dff46e6fa35684be6acc96:summer
     d241bd2a4c7ef7c695230258b80c66b955a9af10f804a989a1dd84fdbf3ce228:pizzapolloburgir
-    
 
 ---
 ## g) Sanakirja. Oman sanakirjan teko parantaa onnistumismahdollisuuksia. Demonstroi, kuinka teet oman sanakirjan hashcat:n tai john:iin.
+Edellisessä tehtävässä tehty sanakirja **`testi.txt`**, lisätty uusia sanoja.
 
 
+**hashcat demonstroitu edellisessä tehtävässä**
+
+    └─$ hashcat -m 1400 namnamB.txt testi.txt --show
+    d241bd2a4c7ef7c695230258b80c66b955a9af10f804a989a1dd84fdbf3ce228:pizzapolloburgir
+
+**john demonstroiminen**
+
+```bash
+# Luettiin sanakirja ja verrattiin hashiin
+└─$ john --wordlist=testi.txt namnamB.txt
+
+# Ei osumaa
+└─$ john --show namnamB.txt
+0 password hashes cracked, 1 left
+```
+
+Tässä kysyttiin ChatGPT:ltä apua.
+
+<img width="762" height="180" alt="kuva" src="https://github.com/user-attachments/assets/329954bb-dabf-4d78-bb28-68e7edf429be" />
+
+Piti lisätä SHA-256 formaatti, jotta John tietää hashin sisältävän SHA-256 enkryptauksen.
+
+Tuloste myös kertoo komennosta "--show --format=Raw-SHA256". Syötettiin.
+    
+    └─$ john --show --format=Raw-SHA256 namnamB.txt 
+    ?:pizzapolloburgir
+    
+    1 password hash cracked, 0 left
 
 ---
 ## h) Hash rules. Näytä esimerkki HashCatin sääntöjen käytöstä (rules).
