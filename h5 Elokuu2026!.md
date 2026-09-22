@@ -28,8 +28,8 @@ Kalissa valmiiksi asennettu.
 
 **Tehtiin hakemisto tehtävälle**
 
-    mkdir hashed
-    cd hashed
+mkdir hashed
+cd hashed
 
 **Ladattiin sanakirja rockyou.txt**
 
@@ -81,17 +81,17 @@ Ajettiin hashcat uudelleen.
 Karvisen ohjeessa näkyy komennossa **`zlib-gst`**, mutta pakettien taulukossa **`zlib1g-gst`**. Katsottiin Kalin paketeista ja löytyi **`zlib1g-dev`**. Kuitenkin jätettiin paketti lataamatta.
 
 **Asennetaan John the Ripper, Jumbo versio**
+```bash
+# Kopioidaan git repo
+git clone --depth=1 https://github.com/openwall/john.git
 
-    # Kopioidaan git repo
-    git clone --depth=1 https://github.com/openwall/john.git
+# ./configure tunnistaa ympäristön ja tekee Makefile 'make'-komennolle
+cd john/src/
+./configure
 
-    # ./configure tunnistaa ympäristön ja tekee Makefile 'make'-komennolle
-    cd john/src/
-    ./configure
-
-    # Compile
-    make -s clean && make -sj4
-
+# Compile
+make -s clean && make -sj4
+```
 Asennettu ja käännetty.
 
 **Ladattiin esimerkkitiedosto ja purattiin se**
@@ -102,12 +102,13 @@ Purkaus epäonnistui, tiedosto vaatii salasanan
 
 
 **Crack zip password**
+```bash
+# Otetaan hash talteen
+zip2john tero.zip > tero.zip.hash
 
-    # Otetaan hash talteen
-    zip2john tero.zip > tero.zip.hash
-
-    # Sanakirja hyökkäys
-    john tero.zip.hash
+# Sanakirja hyökkäys
+john tero.zip.hash
+```
 
 Saatiin salasana.
 
@@ -129,7 +130,7 @@ Tässä vielä purattu sisältö.
 
 **Tiedoston salaus 7z**
 
-
+```bash
     7z a -p "pizza" secret.7z namnamA.txt
 
     # Poistettiin tiedosto
@@ -137,6 +138,7 @@ Tässä vielä purattu sisältö.
 
     # Epäonnistunut purkaustesti
     7z e pizza.7z
+```
 
 **a** on tiedoston lisäys.
 
@@ -145,12 +147,13 @@ Tässä vielä purattu sisältö.
 **e** purkaus.
 
 **Murretaan**
-
+```bash
     # Otetaan hash talteen
     7z2john pizza.7z > pizza.7z.hash
 
     # Selvitetään salasana
     john pizza.7z.hash
+```
 
 <img width="767" height="227" alt="kuva" src="https://github.com/user-attachments/assets/5fbf1000-7fde-4474-b929-535f51d8c52c" />
 
