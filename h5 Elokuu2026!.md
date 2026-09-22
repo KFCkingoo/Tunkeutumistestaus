@@ -1,5 +1,5 @@
 # h5 Elokuu2026!
-Raporttitehtävät Tero Karvisen kurssille - Tunkeutumistestaus ICI005AS3A-3007.
+Raporttitehtävä Tero Karvisen kurssille - Tunkeutumistestaus ICI005AS3A-3007.
 
 Syksy 2026.
 ### Ympäristö
@@ -28,10 +28,10 @@ Kalissa valmiiksi asennettu.
 
 **Tehtiin hakemisto tehtävälle**
 
-mkdir hashed
-cd hashed
+    mkdir hashed
+    cd hashed
 
-**Ladattiin sanakirja rockyou.txt**
+**Ladattiin sanakirja rockyou.txt ja poistettiin tar**
 
     wget https://github.com/danielmiessler/SecLists/raw/master/Passwords/Leaked-Databases/rockyou.txt.tar.gz
     tar xf rockyou.txt.tar.gz
@@ -47,7 +47,8 @@ cd hashed
     ...
 
 **Crack the hash**
-Virhetilanne, puuttuu yhteensopivia ajureita:
+
+Virhetilanne, puuttuu yhteensopivia ajureita.
 
     hashcat (v7.1.2) starting
     
@@ -62,12 +63,14 @@ Asennettiin yhteensopiva ajuri.
 Ajettiin hashcat uudelleen.
 
     hashcat -m 0 '6b1628b016dff46e6fa35684be6acc96' rockyou.txt -o solved
+    
+| Option | Kuvaus |
+|---|---|
+| **-m**| Mode eli hashin tyyppi |
+| **0**| MD5-formaatti |
+|**-o solved** | Tallentaa löydetyt salasanat `solved`-tiedostoon |
 
-**-m** on mode.
-
-**0** on MD5 formaatti.
-
-**-o solved** lisää murretun salasanan 'solved'-tiedostoon.
+Katsottiin murrettu hash.
 
     └─$ cat solved 
     6b1628b016dff46e6fa35684be6acc96:summer
@@ -81,6 +84,7 @@ Ajettiin hashcat uudelleen.
 Karvisen ohjeessa näkyy komennossa **`zlib-gst`**, mutta pakettien taulukossa **`zlib1g-gst`**. Katsottiin Kalin paketeista ja löytyi **`zlib1g-dev`**. Kuitenkin jätettiin paketti lataamatta.
 
 **Asennetaan John the Ripper, Jumbo versio**
+
 ```bash
 # Kopioidaan git repo
 git clone --depth=1 https://github.com/openwall/john.git
@@ -102,6 +106,7 @@ Purkaus epäonnistui, tiedosto vaatii salasanan
 
 
 **Crack zip password**
+
 ```bash
 # Otetaan hash talteen
 zip2john tero.zip > tero.zip.hash
@@ -140,13 +145,15 @@ Tässä vielä purattu sisältö.
     7z e pizza.7z
 ```
 
-**a** on tiedoston lisäys.
+| Option | Toiminto |
+|---|---|
+| **a** | Tiedoston lisäys arkistoon |
+| **-p** | Salasana |
+| **e** | Purkaus |
 
-**-p** on salasana.
-
-**e** purkaus.
 
 **Murretaan 7z-tiedosto**
+
 ```bash
     # Otetaan hash talteen
     7z2john pizza.7z > pizza.7z.hash
@@ -245,9 +252,65 @@ Tuloste myös kertoo komennosta "--show --format=Raw-SHA256". Syötettiin.
 
 ---
 ## h) Hash rules. Näytä esimerkki HashCatin sääntöjen käytöstä (rules).
+```bash
+└─$ hashcat --help
+-j, --rule-left                | Rule | Single rule applied to each word from left wordlist  | -j 'c'
+-k, --rule-right               | Rule | Single rule applied to each word from right wordlist | -k '^-'
+-r, --rules-file               | File | Multiple rules applied to each word from wordlists   | -r rules/best64.rule
+
+# Virhe, puuttuu rules/ polku
+└─$ hashcat -m 1400 -a 0 namnamB.txt testi.txt -r rules/best66.rule
+hashcat (v7.1.2) starting
+    
+    rules/best64.rule: No such file or directory
+
+# Komentoa ei ajettu
+└─$ hashcat -m 1400 -a 0 -r /usr/share/hashcat/rules/best66.rule namnamB.txt testi.txt
+
+# Pitkään yritetty ja mentiin AI:lla. Komentoa ei ajettu, koska tiedostot oli jo murrettu aikaisemmin.
+# Unohtui tuloksen kaappaus, mutta status oli Cracked eli onnistunut.
+└─$ hashcat -m 1400  namnamB.txt testi.txt -r /usr/share/hashcat/rules/best66.rule --potfile-disable
 
 
+# Testattiin uudella hashilla
+└─$ hashcat -m 1400 -a 0 testi.hash testi.txt -r /usr/share/hashcat/rules/best66.rule
+
+Session..........: hashcat
+Status...........: Exhausted
+Hash.Mode........: 1400 (SHA2-256)
+Hash.Target......: testi.hash
+Time.Started.....: Tue Sep 22 18:15:26 2026 (0 secs)
+Time.Estimated...: Tue Sep 22 18:15:26 2026 (0 secs)
+Kernel.Feature...: Pure Kernel (password length 0-256 bytes)
+Guess.Base.......: File (testi.txt)
+Guess.Mod........: Rules (/usr/share/hashcat/rules/best66.rule)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#01........:   457.7 kH/s (0.02ms) @ Accel:912 Loops:64 Thr:1 Vec:8
+Recovered........: 1/3 (33.33%) Digests (total), 0/3 (0.00%) Digests (new)
+Progress.........: 264/264 (100.00%)
+Rejected.........: 0/264 (0.00%)
+Restore.Point....: 4/4 (100.00%)
+Restore.Sub.#01..: Salt:0 Amplifier:64-66 Iteration:0-64
+Candidate.Engine.: Device Generator
+Candidates.#01...: urgir -> 
+Hardware.Mon.#01.: Util: 24%
+
+```
+
+**`best66.rule`** ei osunut vaihtoehtoihin kuten **pizzapolloburgir!** tai **pizzap0lloburgir**, luulisi että ensimmäiseen vaihtoehtoon olisi osunut. Kun lisättiin alkuperäinen **pizzapolloburgir**, niin se sai osuman uudella hashilla.
+
+    └─$ hashcat -m 1400 --show testi.hash 
+    d241bd2a4c7ef7c695230258b80c66b955a9af10f804a989a1dd84fdbf3ce228:pizzapolloburgir
+
+
+---
 ## Lähteet
+[ChatGPT](https://chatgpt.com/) hyödynnetty tehtävissä g) ja h). Käytetty 23.9.2026.
+
+HackerDNA Team. 17.9.2026 [How to Use Hashcat: Attack Modes and Examples (2026)](https://hackerdna.com/blog/how-to-use-hashcat). Luettu 23.9.2026. 
+
+Hash Generator. 2026. [Online Hash Generator](https://hashgenerator.co/). Käytetty 23.9.2026.
+
 Karvinen, T. 2023. [Crack File Password With John](https://terokarvinen.com/2023/crack-file-password-with-john/). Luettu: 22.9.2026.
 
 Karvinen, T. 2023. [Cracking Passwords with Hashcat](https://terokarvinen.com/2022/cracking-passwords-with-hashcat/). Luettu: 22.9.2026.
