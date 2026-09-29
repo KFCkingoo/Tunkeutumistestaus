@@ -116,22 +116,85 @@ Ajettiin komento ffuf [Recursion-ohjeiden](https://github.com/ffuf/ffuf/wiki/Rec
 
 **Goal: Three hostnames under ffuf.io.fi serve different content from this same address. Find all three.**
 
+Ajettiin ensin normaalisti.
 
+    $ ./ffuf -w content.txt -u https://ffuf.io.fi/ -H "Host: FUZZ.ffuf.io.fi"
 
+Saatiin suuri määrä tuloksia, jossa samat arvot.
+
+<img width="737" height="212" alt="kuva" src="https://github.com/user-attachments/assets/d563b219-f8d1-4ddf-bb3e-0ce85d86fdde" />
+
+Filtteröitiin ohjeen mukaan **`-fw 377`** ja kokeiltiin **`-rate`**-rajoitusta.
+
+    $ ./ffuf -w content.txt -u https://ffuf.io.fi/ -H "Host: FUZZ.ffuf.io.fi" -fw 377 -rate 50
+
+<img width="736" height="51" alt="kuva" src="https://github.com/user-attachments/assets/26386b58-bc06-4a8e-9da5-020355522ce4" />
+
+Saatiin vain admin osoite. Kokeiltu eri filttereillä ja jopa per-host calibration **`-ach`** eikä saatu muut 2 virtual hostia.
+
+    $ ./ffuf -w content.txt -u https://ffuf.io.fi/ -H "Host: FUZZ.ffuf.io.fi" -fw 377 -ach -rate 500
+    
 
 ---
 ## c9) The login you cannot replay (Has preflight! Has CSRF token!)
 
+**Goal: Get into the admin account. A plain password fuzz returns 403 forever, however long you run it.**
+
+Tässä emme oikeen edennyt, joten suuntauduttiin ohjeeseen **C), spelled out**.
+
+```bash
+
+cat > login.raw <<'EOF'
+GET /login HTTP/1.1
+Host: ffuf.io.fi
+Accept: text/html
+
+EOF
+
+ffuf -w passwords.txt -u https://ffuf.io.fi/login -X POST \
+ -H "Content-Type: application/x-www-form-urlencoded" \
+ -d "csrf_token=CSRFTOKEN&username=admin&password=FUZZ" \
+ -preflight login.raw \
+ -preflight-var 'CSRFTOKEN:name="csrf_token" value="([a-f0-9]+)"' \
+ -preflight-mode per-request \
+ -mc 302
+
+```
+Saatiin salasana.
+
+<img width="737" height="45" alt="kuva" src="https://github.com/user-attachments/assets/d03c4179-1ced-4b8e-bfae-012a91e04602" />
+
+Tässä läpikäynnissä oli hieman epäselvyyksiä, joten kysyimme ChatGPT:ltä tarkempaa selvennystä.
+
+Lyhyesti ffuf hakee ensin CSRF-tokenin ennen jokaisen **`passwords.txt`** salasanojen yritystä ja palauttaa Status Coden 302 onnistuttua.
+
+**`login.raw`** tiedosto = sen sisältö on ffufin esipyyntö eli preflight-request, mikä hakee `/login`-sivulta CSRF-tokenin ja käyttää sitä POST-pyynnössä.
+
+**`-X POST`** = tekee fuzzauksen POST-pyyntöinä, kirjautuminen.
+
+**`-H "Content-Type: application/x-www-form-urlencoded"`** = HTTP-headerin lisääminen. 
+
+**`-d "csrf_token=CSRFTOKEN&username=admin&password=FUZZ"`** = HTTP request body, POST-pyynnöllä lähetetty data. Salasanaa fuzzataan.
+
+**`-preflight login.raw`** = Suoritetaan `login.raw` ennen fuzzaus-pyyntöjä.
+
+**`-preflight-var 'CSRFTOKEN:name="csrf_token" value="([a-f0-9]+)"'`** = Etsitään `/login`-sivun HTML:ästä `csrf_token` ja sen arvo `value` a:sta 9:ään. Ffuf sitten antaa arvolle nimen `CSRFTOKEN`.
+
+**`-preflight-mode per-request`** = Suoritetaan preflight jokaisen yrityksen jälkeen, jos CSRF-token vaihtuu.
+
+**`-mc 302`** = Match Status Code 302.
 
 ---
 ## Lähteet
 
-[CLI flags](https://github.com/ffuf/ffuf/wiki/CLI-flags).
+[ChatGPT](chatgpt.com). 2026. Hyödynnetty tehtävän c9 selvennyksessä.
+
+[CLI flags](https://github.com/ffuf/ffuf/wiki/CLI-flags). Luettu: 30.9.2026.
 
 [Harjoitukset](https://ffuf.io.fi/play).
 
-[Hoikkala 2026: Fuzzing with Fuff](https://terokarvinen.com/tunkeutumistestaus/hoikkala-2026-fuzzing-with-ffuf.pdf).
+Hoikkala, J. 2026. [Fuzzing with Fuff](https://terokarvinen.com/tunkeutumistestaus/hoikkala-2026-fuzzing-with-ffuf.pdf). Luettu: 29.9.2026.
 
-[Performance and rate](https://github.com/ffuf/ffuf/wiki/Performance-and-rate#rate-limiting).
+[Performance and rate](https://github.com/ffuf/ffuf/wiki/Performance-and-rate#rate-limiting). Luettu: 29.9.2026.
 
-[Recursion](https://github.com/ffuf/ffuf/wiki/Recursion#depth).
+[Recursion](https://github.com/ffuf/ffuf/wiki/Recursion#depth). Luettu: 29.9.2026.
