@@ -201,4 +201,4 @@ Hoikkala, J. 2026. [Performance and rate](https://github.com/ffuf/ffuf/wiki/Perf
 
 Hoikkala, J. 2026. [Recursion](https://github.com/ffuf/ffuf/wiki/Recursion#depth). GitHub. Luettu: 29.9.2026.
 
-[Vaultline Oy](https://ffuf.io.fi/play). s.a. Harjoitukset tehty 29.9.2026.
+Vaultline Oy. s.a. [How to play](https://ffuf.io.fi/play). Harjoitukset tehty 29.9.2026.
